@@ -63,6 +63,7 @@ async fn main() -> anyhow::Result<()> {
         pool: pool.clone(),
         allowed_channels,
         allowed_users,
+        allow_bot_messages: cfg.discord.allow_bot_messages,
         reactions_config: cfg.reactions,
         stt_config: cfg.stt.clone(),
     };

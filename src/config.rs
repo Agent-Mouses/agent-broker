@@ -48,6 +48,10 @@ pub struct DiscordConfig {
     pub allowed_channels: Vec<String>,
     #[serde(default)]
     pub allowed_users: Vec<String>,
+    /// When true, the bot will process messages from other bots (e.g. other agent-broker instances).
+    /// Default: false (ignore all bot messages to prevent loops).
+    #[serde(default)]
+    pub allow_bot_messages: bool,
 }
 
 #[derive(Debug, Deserialize)]
