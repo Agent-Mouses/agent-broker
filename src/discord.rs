@@ -39,11 +39,16 @@ pub struct Handler {
 #[async_trait]
 impl EventHandler for Handler {
     async fn message(&self, ctx: Context, msg: Message) {
-        if msg.author.bot && !self.allow_bot_messages {
+        let bot_id = ctx.cache.current_user().id;
+
+        // Always ignore our own messages to prevent self-loops
+        if msg.author.id == bot_id {
             return;
         }
 
-        let bot_id = ctx.cache.current_user().id;
+        if msg.author.bot && !self.allow_bot_messages {
+            return;
+        }
 
         let channel_id = msg.channel_id.get();
         let in_allowed_channel =
